@@ -17,9 +17,9 @@ const Support = props => {
       })
   };
 
-  function onChange(value) {
+  // function onChange(value) {
     // console.log("Captcha value:", value);
-  }
+  // }
 
   return (
     <div className="support padding-all-15" data-name="support">
@@ -72,7 +72,7 @@ const Support = props => {
 
             <ReCAPTCHA
               sitekey="6LcurqoZAAAAANOiRbwTC2nTSPMZIW7BRnYEwgst"
-              onChange={onChange}
+              // onChange={onChange}
             />
 
             <Form.Item>

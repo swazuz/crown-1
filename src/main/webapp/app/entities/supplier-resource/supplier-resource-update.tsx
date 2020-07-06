@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Link, RouteComponentProps} from 'react-router-dom';
-import {Button, Col, Label, Row} from 'reactstrap';
-import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
 import {Translate, translate} from 'react-jhipster';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {IRootState} from 'app/shared/reducers';
@@ -10,7 +8,33 @@ import {getEntities as getResourceTypes} from 'app/entities/resource-type/resour
 import {getEntities as getReceiverSuppliers} from 'app/entities/receiver-supplier/receiver-supplier.reducer';
 import {createEntity, getEntity, reset, updateEntity} from './supplier-resource.reducer';
 import ReceiverSupplierFields from "app/entities/receiver-supplier/receiver-supplier-fields";
-import UploadDocuments  from 'app/entities/supplier-resource/buyer-seller-document-component';
+
+import {
+  Button,
+  Checkbox,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Rate,
+  Row,
+  Select,
+  Slider,
+  Switch,
+  Upload
+} from "antd";
+import { ArrowLeftOutlined, SaveOutlined, UploadOutlined } from '@ant-design/icons';
+import UploadFile from "app/commonComponents/UploadFile";
+const { Option } = Select;
+const normFile = e => {
+  // console.log(e)
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+};
 
 export interface ISupplierResourceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
 }
@@ -99,86 +123,156 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col md="8">
-          <h2 id="crownApp.supplierResource.home.createOrEditLabel">
-            <Translate contentKey="crownApp.supplierResource.home.createOrEditLabel">Create or edit a
-              SupplierResource</Translate>
+        <Col span={16}>
+          <h2 id="crownApp.supplierResource.home.createLabel">
+            <Translate contentKey="crownApp.supplierResource.home.createLabel">Sell a Resource</Translate>
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col md="8">
+        <Col span={16}>
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <AvForm model={isNew ? {} : supplierResourceEntity} onSubmit={saveEntity}>
-              {!isNew ? (
-                <AvGroup>
-                  <Label for="supplier-resource-id">
-                    <Translate contentKey="global.field.id">ID</Translate>
-                  </Label>
-                  <AvInput id="supplier-resource-id" type="text" className="form-control" name="id" required readOnly/>
-                </AvGroup>
-              ) : null}
-              <AvGroup>
-                <Label for="supplier-resource-resourceType">
-                  <Translate contentKey="crownApp.supplierResource.resourceType">Resource Type</Translate>
-                </Label>
-                <AvInput id="supplier-resource-resourceType" type="select" className="form-control"
-                         name="resourceType.id">
-                  <option value="" key="0"/>
-                  {resourceTypes
-                    ? resourceTypes.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
-                      </option>
-                    ))
-                    : null}
-                </AvInput>
-              </AvGroup>
-              <AvGroup>
-                <Label id="quantityLabel" for="supplier-resource-quantity">
-                  <Translate contentKey="crownApp.supplierResource.quantity"> Quantity Offering </Translate>
-                </Label>
-                <AvField
-                  id="supplier-resource-quantity"
-                  type="string"
-                  className="form-control"
+              <Form
+                name="supplierResource"
+                onFinish={saveEntity}
+                layout="vertical"
+                initialValues={{}}
+              >
+                {!isNew ? (
+                  <Form.Item
+                    name="id"
+                    label={translate('global.field.id')}
+                    rules={[
+                      {
+                        required: true,
+                        message: '',
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                ) : null}
+
+                <Form.Item
+                  name="resourceType.id"
+                  label={translate('crownApp.supplierResource.resourceType')}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please select a resource type!',
+                    },
+                  ]}
+                >
+                  <Select placeholder="Select a resource type">
+                    <Option value="" key="0">Select</Option>
+                    {resourceTypes
+                      ? resourceTypes.map(otherEntity => (
+                        <Option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.name}
+                        </Option>
+                      ))
+                      : null}
+                  </Select>
+                </Form.Item>
+
+                <Form.Item
                   name="quantity"
-                />
-              </AvGroup>
-              <AvGroup>
-                <Label id="costLabel" for="supplier-resource-cost">
-                  <Translate contentKey="crownApp.supplierResource.cost">Cost/per Unit</Translate>
-                </Label>
-                <AvField
-                  id="supplier-resource-cost"
-                  type="string"
-                  className="form-control"
+                  label={translate('crownApp.supplierResource.quantity')}
+                  rules={[
+                    {
+                      required: true,
+                      message: translate('entity.validation.required'),
+                    },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: '100%' }} />
+                </Form.Item>
+
+                <Form.Item
+                  name="quantityValidUntil"
+                  label={translate('crownApp.supplierResource.quantityValidUntil')}
+                  rules={[
+                    {
+                      required: true,
+                      message: translate('entity.validation.required'),
+                    },
+                  ]}
+                >
+                  <DatePicker style={{ width: '100%' }} />
+                </Form.Item>
+
+                <Form.Item
                   name="cost"
-                  validate={{
-                    required: {value: true, errorMessage: translate('entity.validation.required')},
-                    number: {value: true, errorMessage: translate('entity.validation.number')}
-                  }}
-                />
-                </AvGroup>
-                <Label>Supporting Documents</Label>
-                <UploadDocuments/>
-              {mayBeSupplierFields()}
-              <Button tag={Link} id="cancel-save" to="/" replace color="info">
-                <FontAwesomeIcon icon="arrow-left"/>
-                &nbsp;
-                <span className="d-none d-md-inline">
-                  <Translate contentKey="entity.action.back">Back</Translate>
-                </span>
-              </Button>
-              &nbsp;
-              <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save"/>
-                &nbsp;
-                <Translate contentKey="entity.action.save">Save</Translate>
-              </Button>
-            </AvForm>
+                  label={translate('crownApp.supplierResource.cost')}
+                  rules={[
+                    {
+                      required: true,
+                      message: translate('entity.validation.required'),
+                    },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: '100%' }} />
+                </Form.Item>
+
+                <Form.Item
+                  name="productAvailabilityLeadTime"
+                  label={translate('crownApp.supplierResource.productAvailabilityLeadTime')}
+                  rules={[
+                    {
+                      required: true,
+                      message: translate('entity.validation.required'),
+                    },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: '100%' }} />
+                </Form.Item>
+
+                <Form.Item
+                  name="minOrderQuantity"
+                  label={translate('crownApp.supplierResource.minOrderQuantity')}
+                  rules={[
+                    {
+                      required: true,
+                      message: translate('entity.validation.required'),
+                    },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: '100%' }} />
+                </Form.Item>
+
+                <Form.Item
+                  name="quantityOnHand"
+                  label={translate('crownApp.supplierResource.quantityOnHand')}
+                  rules={[
+                    {
+                      required: true,
+                      message: translate('entity.validation.required'),
+                    },
+                  ]}
+                >
+                  <InputNumber min={1} style={{ width: '100%' }} />
+                </Form.Item>
+
+                <Row gutter={[0, 8]}>
+                  <Col span={4}>
+                    <Form.Item>
+                      <Button type="default" htmlType="submit" icon={<ArrowLeftOutlined />}>
+                        {translate('entity.action.back')}
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                  <Col span={4}>
+                    <Form.Item>
+                      <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
+                        <Translate contentKey="entity.action.save">Save</Translate>
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Input type="hidden" name="isSeller" value="true" />
+              </Form>
           )}
         </Col>
       </Row>
