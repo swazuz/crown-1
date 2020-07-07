@@ -255,6 +255,11 @@ export const SupplierResourceUpdate = (props: ISupplierResourceUpdateProps) => {
                   <InputNumber min={1} style={{ width: '100%' }} />
                 </Form.Item>
 
+                <Form.Item
+                >
+
+                </Form.Item>
+
                 <Row gutter={[0, 8]}>
                   <Col span={4}>
                     <Form.Item>
