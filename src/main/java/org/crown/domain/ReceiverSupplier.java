@@ -1,14 +1,15 @@
 package org.crown.domain;
 
-import java.io.Serializable;
-import java.net.URI;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import javax.validation.constraints.*;
+
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A ReceiverSupplier.
@@ -16,180 +17,162 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "receiver_supplier")
 public class ReceiverSupplier implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	// TODO: All the fields below constitute 'Organization Details'.
-	// Candidate to be defined in a custom type
+    
+    @NotNull
+    @Field("name")
+    private String name;
 
-	@Field("org_name")
-	private String orgName;
+    @Field("address")
+    private String address;
 
-	@Field("org_website")
-	private String orgWebsite;
+    @NotNull
+    @Field("email")
+    private String email;
 
-	@Field("address_line1")
-	private String addressLine1;
+    @NotNull
+    @Field("primary_contact_name")
+    private String primaryContactName;
+    
 
-	@Field("address_line2")
-	private String addressLine2;
+    @Field("org_name")
+    private String orgName;
 
-	@Field("city")
-	private String city;
+    @Field("org_website")
+    private String orgWebsite;
+    
+    @Field("address_line1")
+    private String addressLine1;
+    
+    @Field("address_line2")
+    private String addressLine2;
+    
+    
+    @Field("zip")
+    private String zip;
 
-	@Field("zip")
-	private String zip;
+    @Field("phonenumber")
+    private String phonenumber;
 
-	@Field("state")
-	private String state;
+    @Field("latx")
+    private Float latx;
 
-	@Field("country")
-	private String country;
+    @Field("longy")
+    private Float longy;
 
-	// TODO: All the fields below constitute 'Person of Contact Details'.
-	// Candidate to be defined in a custom type
+    @Field("city")
+    private String city;
 
-	// TODO: 'Address' should be its own type so it can be reused across the
-	// above 'Organization' type and this 'PersonOfContact' type
 
-	@Field("position")
-	private String position;
+    @Field("state")
+    private String state;
 
-	@Field("proof_of_association")
-	private String proofOfAssociation;
+    @Field("country")
+    private String country;
 
-	@Field("proof_of_association_link")
-	private URI proofOfAssociationLink;
+    @Field("npi")
+    private Integer npi;
 
-	@Field("poc_first_name")
-	private String firstName;
+    @Field("is_receiver")
+    private Boolean isReceiver;
 
-	@Field("poc_last_name")
-	private String pocLastName;
+    @Field("is_supplier")
+    private Boolean isSupplier;
 
-	@Field("email")
-	private String email;
+    @Field("has_sterilization")
+    private Boolean hasSterilization;
 
-	@Field("phone_number")
-	private String phonenumber;
+    @Field("priority")
+    private Integer priority;
 
-	@Field("poc_secondary_phone_number")
-	private String pocSecondaryPhoneNumber;
+    @Field("notes")
+    private String notes;
 
-	@Field("poc_address_line1")
-	private String pocAddressLine11;
+    @Field("tags")
+    private String tags;
 
-	@Field("poc_address_line2")
-	private String pocAddressLine2;
+    @Field("proofOfAssociation")
+    private String proofOfAssociation;
 
-	@Field("poc_city")
-	private String pocCity;
+    @DBRef
+    @Field("receiverResource")
+    private Set<ReceiverResource> receiverResources = new HashSet<>();
 
-	@Field("poc_zip")
-	private String pocZip;
+    @DBRef
+    @Field("supplierResource")
+    private Set<SupplierResource> supplierResources = new HashSet<>();
 
-	@Field("poc_state")
-	private String pocState;
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    public String getId() {
+        return id;
+    }
 
-	@Field("poc_country")
-	private String pocCountry;
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	// TODO: Determine if the below fields are still in use
-	@Field("latx")
-	private Float latx;
+    public String getName() {
+        return name;
+    }
 
-	@Field("longy")
-	private Float longy;
+    public ReceiverSupplier name(String name) {
+        this.name = name;
+        return this;
+    }
 
-	@Field("address")
-	private String address;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Field("primary_contact_name")
-	private String primaryContactName;
+    public String getAddress() {
+        return address;
+    }
 
-	@Field("npi")
-	private Integer npi;
+    public ReceiverSupplier address(String address) {
+        this.address = address;
+        return this;
+    }
 
-	@Field("is_receiver")
-	private Boolean isReceiver;
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	@Field("is_supplier")
-	private Boolean isSupplier;
+    public String getEmail() {
+        return email;
+    }
 
-	@Field("has_sterilization")
-	private Boolean hasSterilization;
+    public ReceiverSupplier email(String email) {
+        this.email = email;
+        return this;
+    }
 
-	@Field("priority")
-	private Integer priority;
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Field("notes")
-	private String notes;
+    public String getPrimaryContactName() {
+        return primaryContactName;
+    }
 
-	@Field("tags")
-	private String tags;
+    public ReceiverSupplier primaryContactName(String primaryContactName) {
+        this.primaryContactName = primaryContactName;
+        return this;
+    }
 
-	@DBRef
-	@Field("receiverResource")
-	private Set<ReceiverResource> receiverResources = new HashSet<>();
+    public void setPrimaryContactName(String primaryContactName) {
+        this.primaryContactName = primaryContactName;
+    }
 
-	@DBRef
-	@Field("supplierResource")
-	private Set<SupplierResource> supplierResources = new HashSet<>();
-
-	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
-	// remove
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getOrgName() {
+    public String getOrgName() {
 		return orgName;
-	}
-
-	public ReceiverSupplier orgName(String orgName) {
-		this.orgName = orgName;
-		return this;
 	}
 
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public ReceiverSupplier address(String address) {
-		this.address = address;
-		return this;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public ReceiverSupplier email(String email) {
-		this.email = email;
-		return this;
-	}
-
-	public String getPrimaryContactName() {
-		return primaryContactName;
-	}
-
-	public ReceiverSupplier primaryContactName(String primaryContactName) {
-		this.primaryContactName = primaryContactName;
-		return this;
-	}
-
-	public void setPrimaryContactName(String primaryContactName) {
-		this.primaryContactName = primaryContactName;
 	}
 
 	public String getOrgWebsite() {
@@ -200,530 +183,306 @@ public class ReceiverSupplier implements Serializable {
 		this.orgWebsite = orgWebsite;
 	}
 
-	public ReceiverSupplier zip(String zip) {
-		this.zip = zip;
-		return this;
-	}
-
-	public ReceiverSupplier phonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-		return this;
-	}
-
-	public Float getLatx() {
-		return latx;
-	}
-
-	public ReceiverSupplier latx(Float latx) {
-		this.latx = latx;
-		return this;
-	}
-
-	public void setLatx(Float latx) {
-		this.latx = latx;
-	}
-
-	public Float getLongy() {
-		return longy;
-	}
-
-	public ReceiverSupplier longy(Float longy) {
-		this.longy = longy;
-		return this;
-	}
-
-	public void setLongy(Float longy) {
-		this.longy = longy;
-	}
-
-	public ReceiverSupplier city(String city) {
-		this.city = city;
-		return this;
-	}
-
-	public ReceiverSupplier state(String state) {
-		this.state = state;
-		return this;
-	}
-
-	public ReceiverSupplier country(String country) {
-		this.country = country;
-		return this;
-	}
-
-	public Integer getNpi() {
-		return npi;
-	}
-
-	public ReceiverSupplier npi(Integer npi) {
-		this.npi = npi;
-		return this;
-	}
-
-	public void setNpi(Integer npi) {
-		this.npi = npi;
-	}
-
-	public Boolean isIsReceiver() {
-		return isReceiver;
-	}
-
-	public ReceiverSupplier isReceiver(Boolean isReceiver) {
-		this.isReceiver = isReceiver;
-		return this;
-	}
-
-	public void setIsReceiver(Boolean isReceiver) {
-		this.isReceiver = isReceiver;
-	}
-
-	public Boolean isIsSupplier() {
-		return isSupplier;
-	}
-
-	public ReceiverSupplier isSupplier(Boolean isSupplier) {
-		this.isSupplier = isSupplier;
-		return this;
-	}
-
-	public void setIsSupplier(Boolean isSupplier) {
-		this.isSupplier = isSupplier;
-	}
-
-	public Boolean isHasSterilization() {
-		return hasSterilization;
-	}
-
-	public ReceiverSupplier hasSterilization(Boolean hasSterilization) {
-		this.hasSterilization = hasSterilization;
-		return this;
-	}
-
-	public void setHasSterilization(Boolean hasSterilization) {
-		this.hasSterilization = hasSterilization;
-	}
-
-	public Integer getPriority() {
-		return priority;
-	}
-
-	public ReceiverSupplier priority(Integer priority) {
-		this.priority = priority;
-		return this;
-	}
-
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
-
-	public String getNotes() {
-		return notes;
-	}
-
-	public ReceiverSupplier notes(String notes) {
-		this.notes = notes;
-		return this;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public ReceiverSupplier tags(String tags) {
-		this.tags = tags;
-		return this;
-	}
-
-	public ReceiverSupplier proofOfAssociation(String proofOfAssociation) {
-		this.proofOfAssociation = proofOfAssociation;
-		return this;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public Set<ReceiverResource> getReceiverResources() {
-		return receiverResources;
-	}
-
-	public ReceiverSupplier receiverResources(Set<ReceiverResource> receiverResources) {
-		this.receiverResources = receiverResources;
-		return this;
-	}
-
-	public ReceiverSupplier addReceiverResource(ReceiverResource receiverResource) {
-		this.receiverResources.add(receiverResource);
-		receiverResource.setReceiver(this);
-		return this;
-	}
-
-	public ReceiverSupplier removeReceiverResource(ReceiverResource receiverResource) {
-		this.receiverResources.remove(receiverResource);
-		receiverResource.setReceiver(null);
-		return this;
-	}
-
-	public void setReceiverResources(Set<ReceiverResource> receiverResources) {
-		this.receiverResources = receiverResources;
-	}
-
-	public Set<SupplierResource> getSupplierResources() {
-		return supplierResources;
-	}
-
-	public ReceiverSupplier supplierResources(Set<SupplierResource> supplierResources) {
-		this.supplierResources = supplierResources;
-		return this;
-	}
-
-	public ReceiverSupplier addSupplierResource(SupplierResource supplierResource) {
-		this.supplierResources.add(supplierResource);
-		supplierResource.setSupplier(this);
-		return this;
-	}
-
-	public ReceiverSupplier removeSupplierResource(SupplierResource supplierResource) {
-		this.supplierResources.remove(supplierResource);
-		supplierResource.setSupplier(null);
-		return this;
-	}
-
-	public void setSupplierResources(Set<SupplierResource> supplierResources) {
-		this.supplierResources = supplierResources;
-	}
-	// jhipster-needle-entity-add-getters-setters - JHipster will add getters and
-	// setters here, do not remove
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof ReceiverSupplier)) {
-			return false;
-		}
-		return id != null && id.equals(((ReceiverSupplier) o).id);
-	}
-
-	@Override
-	public int hashCode() {
-		return 31;
-	}
-
-	@Override
-	public String toString() {
-		return "ReceiverSupplier{" + "id=" + getId() + ", name='" + getOrgName() + "'" + ", address='" + getAddress()
-				+ "'" + ", email='" + getEmail() + "'" + ", primaryContactName='" + getPrimaryContactName() + "'"
-				+ ", zip='" + getZip() + "'" + ", phonenumber='" + getPhonenumber() + "'" + ", latx=" + getLatx()
-				+ ", longy=" + getLongy() + ", city='" + getCity() + "'" + ", state='" + getState() + "'"
-				+ ", country='" + getCountry() + "'" + ", npi=" + getNpi() + ", isReceiver='" + isIsReceiver() + "'"
-				+ ", isSupplier='" + isIsSupplier() + "'" + ", hasSterilization='" + isHasSterilization() + "'"
-				+ ", priority=" + getPriority() + ", notes='" + getNotes() + "'" + ", tags='" + getTags() + "'" + "}";
-	}
-
-	/**
-	 * @return the addressLine1
-	 */
 	public String getAddressLine1() {
 		return addressLine1;
 	}
 
-	/**
-	 * @param addressLine1 the addressLine1 to set
-	 */
 	public void setAddressLine1(String addressLine1) {
 		this.addressLine1 = addressLine1;
 	}
 
-	/**
-	 * @return the addressLine2
-	 */
 	public String getAddressLine2() {
 		return addressLine2;
 	}
 
-	/**
-	 * @param addressLine2 the addressLine2 to set
-	 */
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
 
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
-	}
-
-	/**
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	/**
-	 * @return the zip
-	 */
 	public String getZip() {
-		return zip;
-	}
+        return zip;
+    }
 
-	/**
-	 * @param zip the zip to set
-	 */
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+    public ReceiverSupplier zip(String zip) {
+        this.zip = zip;
+        return this;
+    }
 
-	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getPhonenumber() {
+        return phonenumber;
+    }
 
-	/**
-	 * @return the country
-	 */
-	public String getCountry() {
-		return country;
-	}
+    public ReceiverSupplier phonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+        return this;
+    }
 
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
 
-	/**
-	 * @return the position
-	 */
-	public String getPosition() {
-		return position;
-	}
+    public Float getLatx() {
+        return latx;
+    }
 
-	/**
-	 * @param position the position to set
-	 */
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public ReceiverSupplier latx(Float latx) {
+        this.latx = latx;
+        return this;
+    }
 
-	/**
-	 * @return the proofOfAssociation
-	 */
-	public String getProofOfAssociation() {
-		return proofOfAssociation;
-	}
+    public void setLatx(Float latx) {
+        this.latx = latx;
+    }
 
-	/**
-	 * @param proofOfAssociation the proofOfAssociation to set
-	 */
-	public void setProofOfAssociation(String proofOfAssociation) {
-		this.proofOfAssociation = proofOfAssociation;
-	}
+    public Float getLongy() {
+        return longy;
+    }
 
-	/**
-	 * @return the proofOfAssociationLink
-	 */
-	public URI getProofOfAssociationLink() {
-		return proofOfAssociationLink;
-	}
+    public ReceiverSupplier longy(Float longy) {
+        this.longy = longy;
+        return this;
+    }
 
-	/**
-	 * @param proofOfAssociationLink the proofOfAssociationLink to set
-	 */
-	public void setProofOfAssociationLink(URI proofOfAssociationLink) {
-		this.proofOfAssociationLink = proofOfAssociationLink;
-	}
+    public void setLongy(Float longy) {
+        this.longy = longy;
+    }
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public ReceiverSupplier city(String city) {
+        this.city = city;
+        return this;
+    }
 
-	/**
-	 * @return the pocLastName
-	 */
-	public String getPocLastName() {
-		return pocLastName;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	/**
-	 * @param pocLastName the pocLastName to set
-	 */
-	public void setPocLastName(String pocLastName) {
-		this.pocLastName = pocLastName;
-	}
+    public String getState() {
+        return state;
+    }
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    public ReceiverSupplier state(String state) {
+        this.state = state;
+        return this;
+    }
 
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	/**
-	 * @return the phonenumber
-	 */
-	public String getPhonenumber() {
-		return phonenumber;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	/**
-	 * @param phonenumber the phonenumber to set
-	 */
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
+    public ReceiverSupplier country(String country) {
+        this.country = country;
+        return this;
+    }
 
-	/**
-	 * @return the pocSecondaryPhoneNumber
-	 */
-	public String getPocSecondaryPhoneNumber() {
-		return pocSecondaryPhoneNumber;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	/**
-	 * @param pocSecondaryPhoneNumber the pocSecondaryPhoneNumber to set
-	 */
-	public void setPocSecondaryPhoneNumber(String pocSecondaryPhoneNumber) {
-		this.pocSecondaryPhoneNumber = pocSecondaryPhoneNumber;
-	}
+    public Integer getNpi() {
+        return npi;
+    }
 
-	/**
-	 * @return the pocAddressLine11
-	 */
-	public String getPocAddressLine11() {
-		return pocAddressLine11;
-	}
+    public ReceiverSupplier npi(Integer npi) {
+        this.npi = npi;
+        return this;
+    }
 
-	/**
-	 * @param pocAddressLine11 the pocAddressLine11 to set
-	 */
-	public void setPocAddressLine11(String pocAddressLine11) {
-		this.pocAddressLine11 = pocAddressLine11;
-	}
+    public void setNpi(Integer npi) {
+        this.npi = npi;
+    }
 
-	/**
-	 * @return the pocAddressLine2
-	 */
-	public String getPocAddressLine2() {
-		return pocAddressLine2;
-	}
+    public Boolean isIsReceiver() {
+        return isReceiver;
+    }
 
-	/**
-	 * @param pocAddressLine2 the pocAddressLine2 to set
-	 */
-	public void setPocAddressLine2(String pocAddressLine2) {
-		this.pocAddressLine2 = pocAddressLine2;
-	}
+    public ReceiverSupplier isReceiver(Boolean isReceiver) {
+        this.isReceiver = isReceiver;
+        return this;
+    }
 
-	/**
-	 * @return the pocCity
-	 */
-	public String getPocCity() {
-		return pocCity;
-	}
+    public void setIsReceiver(Boolean isReceiver) {
+        this.isReceiver = isReceiver;
+    }
 
-	/**
-	 * @param pocCity the pocCity to set
-	 */
-	public void setPocCity(String pocCity) {
-		this.pocCity = pocCity;
-	}
+    public Boolean isIsSupplier() {
+        return isSupplier;
+    }
 
-	/**
-	 * @return the pocZip
-	 */
-	public String getPocZip() {
-		return pocZip;
-	}
+    public ReceiverSupplier isSupplier(Boolean isSupplier) {
+        this.isSupplier = isSupplier;
+        return this;
+    }
 
-	/**
-	 * @param pocZip the pocZip to set
-	 */
-	public void setPocZip(String pocZip) {
-		this.pocZip = pocZip;
-	}
+    public void setIsSupplier(Boolean isSupplier) {
+        this.isSupplier = isSupplier;
+    }
 
-	/**
-	 * @return the pocState
-	 */
-	public String getPocState() {
-		return pocState;
-	}
+    public Boolean isHasSterilization() {
+        return hasSterilization;
+    }
 
-	/**
-	 * @param pocState the pocState to set
-	 */
-	public void setPocState(String pocState) {
-		this.pocState = pocState;
-	}
+    public ReceiverSupplier hasSterilization(Boolean hasSterilization) {
+        this.hasSterilization = hasSterilization;
+        return this;
+    }
 
-	/**
-	 * @return the pocCountry
-	 */
-	public String getPocCountry() {
-		return pocCountry;
-	}
+    public void setHasSterilization(Boolean hasSterilization) {
+        this.hasSterilization = hasSterilization;
+    }
 
-	/**
-	 * @param pocCountry the pocCountry to set
-	 */
-	public void setPocCountry(String pocCountry) {
-		this.pocCountry = pocCountry;
-	}
+    public Integer getPriority() {
+        return priority;
+    }
 
-	/**
-	 * @return the isReceiver
-	 */
-	public Boolean getIsReceiver() {
-		return isReceiver;
-	}
+    public ReceiverSupplier priority(Integer priority) {
+        this.priority = priority;
+        return this;
+    }
 
-	/**
-	 * @return the isSupplier
-	 */
-	public Boolean getIsSupplier() {
-		return isSupplier;
-	}
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 
-	/**
-	 * @return the hasSterilization
-	 */
-	public Boolean getHasSterilization() {
-		return hasSterilization;
-	}
+    public String getNotes() {
+        return notes;
+    }
+
+    public ReceiverSupplier notes(String notes) {
+        this.notes = notes;
+        return this;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public ReceiverSupplier tags(String tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public String getProofOfAssociation() {
+        return proofOfAssociation;
+    }
+
+    public void setProofOfAssociation(String proofOfAssociation) {
+        this.proofOfAssociation = proofOfAssociation;
+    }
+
+    public ReceiverSupplier proofOfAssociation(String proofOfAssociation) {
+        this.proofOfAssociation = proofOfAssociation;
+        return this;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Set<ReceiverResource> getReceiverResources() {
+        return receiverResources;
+    }
+
+    public ReceiverSupplier receiverResources(Set<ReceiverResource> receiverResources) {
+        this.receiverResources = receiverResources;
+        return this;
+    }
+
+    public ReceiverSupplier addReceiverResource(ReceiverResource receiverResource) {
+        this.receiverResources.add(receiverResource);
+        receiverResource.setReceiver(this);
+        return this;
+    }
+
+    public ReceiverSupplier removeReceiverResource(ReceiverResource receiverResource) {
+        this.receiverResources.remove(receiverResource);
+        receiverResource.setReceiver(null);
+        return this;
+    }
+
+    public void setReceiverResources(Set<ReceiverResource> receiverResources) {
+        this.receiverResources = receiverResources;
+    }
+
+    public Set<SupplierResource> getSupplierResources() {
+        return supplierResources;
+    }
+
+    public ReceiverSupplier supplierResources(Set<SupplierResource> supplierResources) {
+        this.supplierResources = supplierResources;
+        return this;
+    }
+
+    public ReceiverSupplier addSupplierResource(SupplierResource supplierResource) {
+        this.supplierResources.add(supplierResource);
+        supplierResource.setSupplier(this);
+        return this;
+    }
+
+    public ReceiverSupplier removeSupplierResource(SupplierResource supplierResource) {
+        this.supplierResources.remove(supplierResource);
+        supplierResource.setSupplier(null);
+        return this;
+    }
+
+    public void setSupplierResources(Set<SupplierResource> supplierResources) {
+        this.supplierResources = supplierResources;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ReceiverSupplier)) {
+            return false;
+        }
+        return id != null && id.equals(((ReceiverSupplier) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceiverSupplier{" +
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", primaryContactName='" + getPrimaryContactName() + "'" +
+            ", zip='" + getZip() + "'" +
+            ", phonenumber='" + getPhonenumber() + "'" +
+            ", latx=" + getLatx() +
+            ", longy=" + getLongy() +
+            ", city='" + getCity() + "'" +
+            ", state='" + getState() + "'" +
+            ", country='" + getCountry() + "'" +
+            ", npi=" + getNpi() +
+            ", isReceiver='" + isIsReceiver() + "'" +
+            ", isSupplier='" + isIsSupplier() + "'" +
+            ", hasSterilization='" + isHasSterilization() + "'" +
+            ", priority=" + getPriority() +
+            ", notes='" + getNotes() + "'" +
+            ", tags='" + getTags() + "'" +
+            "}";
+    }
 }
