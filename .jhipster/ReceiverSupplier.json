@@ -170,7 +170,15 @@
 		{
 			"fieldName": "tags",
 			"fieldType": "String"
-		}
+		},
+    {
+      "fieldName": "uuid",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "container",
+      "fieldType": "String"
+    }
 	],
 	"relationships": [
 		{

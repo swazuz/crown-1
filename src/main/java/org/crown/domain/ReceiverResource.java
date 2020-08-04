@@ -69,6 +69,12 @@ public class ReceiverResource implements Serializable {
     @Field("acceptUnpackagedGoods")
     private boolean acceptUnpackagedGoods;
 
+    @Field("uuid")
+    private String uuid;
+
+    @Field("container")
+    private String container;
+
     @DBRef
     @Field("receiver")
     @JsonIgnoreProperties("receiverResources")
@@ -255,6 +261,22 @@ public class ReceiverResource implements Serializable {
     public ReceiverResource proofOfFunds(String proofOfFunds) {
         this.proofOfFunds = proofOfFunds;
         return this;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getContainer() {
+        return container;
+    }
+
+    public void setContainer(String container) {
+        this.container = container;
     }
 
     public ReceiverSupplier getReceiver() {

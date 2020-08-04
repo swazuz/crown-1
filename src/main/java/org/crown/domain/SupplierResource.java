@@ -75,6 +75,12 @@ public class SupplierResource implements Serializable {
 	@Field("postedDate")
 	private Date postedDate;
 
+    @Field("uuid")
+    private String uuid;
+
+    @Field("container")
+    private String container;
+
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
 	// remove
 	public String getId() {
@@ -249,6 +255,22 @@ public class SupplierResource implements Serializable {
 	public void setResourceType(ResourceType resourceType) {
 		this.resourceType = resourceType;
 	}
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getContainer() {
+        return container;
+    }
+
+    public void setContainer(String container) {
+        this.container = container;
+    }
 
 	public ReceiverSupplier getSupplier() {
 		return supplier;

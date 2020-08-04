@@ -61,6 +61,14 @@
         {
         	"fieldName": "acceptUnpackagedGoods",
         	"fieldType": "Boolean"
+        },
+        {
+          "fieldName": "uuid",
+          "fieldType": "String"
+        },
+        {
+          "fieldName": "container",
+          "fieldType": "String"
         }
     ],
     "relationships": [
