@@ -198,6 +198,8 @@ class BuyerJourney extends React.Component<State>  {
       top: '212px'
     }
 
+
+    // Comment
     const innerBottomBoxText = {
       marginBottom: '-5px',
       opacity: '1',

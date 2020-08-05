@@ -184,7 +184,7 @@ class BuyerJourney extends React.Component<State> {
     const innerParagraphText = {
       textAlign: 'center' as const
     };
-
+    
     const innerBottomBox = {
       position: 'absolute' as const,
       backgroundColor: '#5C4A56',
